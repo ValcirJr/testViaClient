@@ -1,0 +1,28 @@
+<div class="card" style="margin-bottom: 30px;">
+    <div class="p-mb-3 p-text-bold"><h3>Selecione a data inicial</h3></div>
+    <p-calendar [(ngModel)]="datainicial" dateFormat="yy-mm-dd"></p-calendar>
+
+    <div class="p-mb-3 p-text-bold"  id="dataFinalCalendar"><h3>Selecione a data final</h3></div>
+    <p-calendar [(ngModel)]="datafinal" dateFormat="yy-mm-dd"></p-calendar>
+
+    <p-button label="Pesquisar entre Datas" (onClick)="filtrarEntreDatas()" styleClass="light-orange-button"></p-button>
+</div>
+
+<p-table [value]="disponibilidades" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="header" >
+        <tr >
+            <th pSortableColumn="autorizador.estado.nome">Autorizador<p-sortIcon field="autorizador.nome"></p-sortIcon></th>
+            <th pSortableColumn="disponibilidade">Disponibilidade<p-sortIcon field="disponibilidade"></p-sortIcon></th>
+            <th pSortableColumn="momentoConsulta">Data<p-sortIcon field="momentoConsulta"></p-sortIcon></th>            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-disponibilidade>
+        <tr>
+            <td>{{disponibilidade.autorizador.nome}}</td>
+            <td [ngClass]="{'disponivel': disponibilidade.disponibilidade.disponibilidade == 'Disponível', 
+            'indisponivel': disponibilidade.disponibilidade.disponibilidade == 'Indisponível'}">
+                    {{disponibilidade.disponibilidade}}</td>
+            <td>{{disponibilidade.momentoConsulta | date: 'MM/dd/yyyy HH:mm'}}</td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,26 @@
+
+<div class="card" style="margin-bottom: 30px;">
+    <div class="p-mb-3 p-text-bold">Selecione o estado</div>
+    <p-dropdown  [options]="estados" [(ngModel)]="selectedEstado" optionLabel="nome" 
+    [filter]="true" filterBy="nome" [showClear]="true" placeholder="Selecione um estado"
+    (onChange)="onChangeEstado($event)"></p-dropdown>
+</div>
+
+<p-table [value]="disponibilidades" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="estado.nome">Estado<p-sortIcon field="estado.nome"></p-sortIcon></th>
+            <th pSortableColumn="autorizador.nome">Autorizador<p-sortIcon field="autorizador.nome"></p-sortIcon></th>
+            <th pSortableColumn="disponibilidade.disponibilidade">Disponibilidade<p-sortIcon field="disponibilidade.disponibilidade"></p-sortIcon></th>            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-disponibilidade>
+        <tr>
+            <td>{{disponibilidade.estado.nome}}</td>
+            <td>{{disponibilidade.autorizador.nome}}</td>
+            <td [ngClass]="{'disponivel': disponibilidade.disponibilidade.disponibilidade == 'Disponível', 
+                            'indisponivel': disponibilidade.disponibilidade.disponibilidade == 'Indisponível'}">
+                {{disponibilidade.disponibilidade.disponibilidade}}</td>
+        </tr>
+    </ng-template>
+</p-table>
